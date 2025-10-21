@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+
+<html> 
+    <head> 
+        <script>
+            function displayData(){
+                    
+
+    //Display (innerHTML) user first and last name to web browser.
+                var userFirst = document.customerDataForm.elements[0];
+                var userLast = document.customerDataForm.elements[1];
+                var userEmail = document.customerDataForm.elements[2];
+                var userPassword = document.customerDataForm.elements[3];
+
+     //Display (innerHTML) user email to web browser. 
+
+                var firstName = userFirst.value;
+                var lastName = userLast.value;
+                var email = userEmail.value;
+                var password = userPassword.value;
+
+    //Display data on the web page
+                 document.getElementById("custDataDisplay").innerHTML = 
+                "<b>First Name:</b> " + firstName + "<br>" +
+                "<b>Last Name:</b> " + lastName + "<br>" +
+                "<b>Email:</b> " + email + "<br>" +
+                "<b>Password:</b> " + password;
+
+            };
+        </script>
+    
+    </head>
+    
+    <body>
+        <h1>SOTD03 - Login Form</h1>
+        <hr />
+        
+        <form name="customerDataForm">
+            First Name: <input type="text"><br />  
+            Last Name: <input type="text"><br />
+            Email Address: <input type="text"><br />
+            Password: <input type="password"><br />
+                <input type="button" value="Submit" onclick="displayData()">
+        </form>
+        <h3>Customer Data</h3>
+        <p id="custDataDisplay"></p>
+    </body>
+</html>
