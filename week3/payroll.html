@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+
+<html> 
+    <head> 
+        <script>
+//Create a FUNCTION calculateGrossPay() with one parameter, hoursWorked
+function calculateGrossPay(hoursWorked) {
+    var rate = 19.00;
+    if (hoursWorked <= 40) {
+        return hoursWorked * rate;
+    } else {
+        var regularHours = 40;
+        var overtimeHours = hoursWorked - regularHours;
+        var regularPay = regularHours * rate;
+        var overtimePay = overtimeHours * rate * 1.5;
+        return regularPay + overtimePay;
+    }
+}
+//Create a FUNCTION calculateSocialSecurity() with one parameter, grossPay.
+function calculateSocialSecurity(grossPay) {
+    var socialSecurityRate = 0.062;
+    return grossPay * socialSecurityRate;
+}
+//Create a FUNCTION calculateMedicare() with one parameter, grossPay
+function calculateMedicare(grossPay) {
+    var medicareRate = 0.0145;
+    return grossPay * medicareRate;
+}
+//Create a FUNCTION calculateWithholding() with two parameters, grossPay and allowances.
+function calculateWithholding(grossPay, allowances) {
+    var withholdingAllowanceAmount = 77.90;
+    var withholdingBase = allowances * withholdingAllowanceAmount;
+    var taxableIncome = grossPay - withholdingBase;
+    if (taxableIncome < 0) taxableIncome = 0;
+    var withholdingRate = 0.20;
+    return taxableIncome * withholdingRate;
+}
+//Create a FUNCTION calculateNetPay(), with 4 parameters, grossPay, socialSecurity, medicare and withholding.
+function calculateNetPay(grossPay, socialSecurity, medicare, withholding) {
+    return grossPay - socialSecurity - medicare - withholding;
+}
+//Create a FUNCTION generatePaystub() with 3 parameters, employeeName, hoursWorked and allowances.
+function generatePaystub(employeeName, hoursWorked, allowances) {
+    var grossPay = calculateGrossPay(hoursWorked);
+    var socialSecurity = calculateSocialSecurity(grossPay);
+    var medicare = calculateMedicare(grossPay);
+    var withholding = calculateWithholding(grossPay, allowances);
+    var netPay = calculateNetPay(grossPay, socialSecurity, medicare, withholding);
+
+    var stub = '';
+    stub += 'Employee Name: ' + employeeName + '<br />';
+    stub += 'Hours Worked: ' + hoursWorked + '<br />';
+    stub += 'Gross Pay: $' + grossPay.toFixed(2) + '<br />';
+    stub += 'Social Security: $' + socialSecurity.toFixed(2) + '<br />';
+    stub += 'Medicare: $' + medicare.toFixed(2) + '<br />';
+    stub += 'Withholding: $' + withholding.toFixed(2) + '<br />';
+    stub += 'Net Pay: $' + netPay.toFixed(2) + '<br />';
+
+    document.getElementById('payrollStub').innerHTML = stub;
+}
+//Create a FUNCTION doPayroll() with no parameters.  This is the main program.
+function doPayroll() {
+    var first = document.getElementById('firstName').value.trim();
+    var last = document.getElementById('lastName').value.trim();
+    var employeeName = (first + ' ' + last).trim();
+    var hours = parseFloat(document.getElementById('hoursWorked').value);
+    if (isNaN(hours) || hours < 0) hours = 0;
+    var allowances = parseFloat(document.getElementById('allowances').value);
+    if (isNaN(allowances) || allowances < 0) allowances = 0;
+    generatePaystub(employeeName, hours, allowances);
+}
+        </script>
+    
+    </head>
+    
+    <body>
+        <h1>SOTD 3_3 - Payroll</h1>
+        <form name="employeeForm">
+            First Name: <input type="text" id="firstName" name="firstName"><br />  
+            Last Name: <input type="text" id="lastName" name="lastName"><br />
+            Enter Hours Worked: <input type="text" id="hoursWorked" name="hoursWorked"><br />
+            Enter number of withholding allowances: <input type="text" id="allowances" name="allowances"><br />
+                <input type="button" value="Submit" onclick="doPayroll()">
+        </form>
+                <input type="button" value="Submit" onclick="main()">
+        </form>
+        <h3>Payroll Stub</h3>
+        <p id="payrollStub"></p>
+    </body>
+</html>
