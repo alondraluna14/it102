@@ -39,14 +39,26 @@
 
 
     // Sort groceryItems alphabetically
+    var total = groceryItems.length;
+    document.getElementById("totalItems").innerHTML = total;  
+
     
     //alert(groceryItems);
     groceryItems.sort();
-    groceryItems.reverse();
+    //groceryItems.reverse();
     //alert(groceryItems);
 
     // Display grocery list to webpage
     document.getElementById("groceryList").innerHTML = groceryItems;
+
+
+    //List each item on a new line, add label  and number of items
+    var listString = "groceryItems: <br>";  
+    for(index=0; index< groceryItems.length; index++){
+        listString += groceryItems[index] + "<br>";}
+    document.getElementById("groceryList").innerHTML = listString;
+
+  
     };
 
   </script>
