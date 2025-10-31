@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Playing Card Object</h1>
+<p>
+<script>
+
+    function Card(suit, rank ){
+
+  //create the suit property and assign it the value from the parameter.
+        this.suit = suit;
+  //create the rank property and assign it the value from the parameter.
+        this.rank = rank;
+  //create the isVisible property and assign boolean false to it.
+        this.isVisible = false;
+  //create the show() method.  This method assigns the boolean true to this.isVisible.
+        this.show = function(){
+            this.isVisible = true
+
+        };
+  //create the hide() method.  This method assigns the boolean false to this.isVisible.
+        this.hide = function(){
+            this.isVisible = false;
+
+        };
+
+}
+
+var card01 = new Card("spades", 9);
+var card02 = new Card("spades", 10);
+
+alert(card01.suit);
+alert(card01.rank);
+alert(card01.rank + " of " + card01.suit);
+alert(card02.isVisible);
+card02.show();
+alert(card02.isVisible);
+</script>
+
+</p>
+
+
+</body>
+</html>
