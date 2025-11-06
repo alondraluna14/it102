@@ -1,31 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deck of Cards</title>
 </head>
 <body>
-    <p>
-<script>
+  <h1>Deck of 52 Cards</h1>
+  <p id="output"></p>
 
-// Initialize an empty array to store a deck of cards
-var deck 
-// Loop until the deck of 52 cards
-       //Use Card Object
-       //Outer Loop Suite
-       //Inner Loop Rank
-// Initialize an empty array to store the hand of cards
-// Initialize a counter variable to keep track of the number of cards in hand
-// Loop until the hand has 3 cards
-// Check if the picked card is not already dealt (not in the hand)
-        // Deal the card to the hand
-        // Mark the card as "dealt" to avoid duplicates
-        // Increment the card counter
-// Output the hand of cards
+  <script>
+    // --- Step 1: Define the Card Object ---
+    function Card(suit, rank) {
+      this.suit = suit;
+      this.rank = rank;
+      this.isVisible = false;
+      this.isDealt = false; // new property to track if the card has been dealt
 
-</script>
+      this.show = function() {
+        this.isVisible = true;
+      };
 
-    </p>
+      this.hide = function() {
+        this.isVisible = false;
+      };
+    }
+
+    // --- Step 2: Create a full deck of 52 cards ---
+    var suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+    var ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+    var deck = [];
+
+    // Outer loop for suits, inner loop for ranks
+    for (var i = 0; i < suits.length; i++) {
+      for (var j = 0; j < ranks.length; j++) {
+        var card = new Card(suits[i], ranks[j]);
+        deck.push(card);
+      }
+    }
+
+    // --- Step 3: Create an empty array for the hand ---
+    var hand = [];
+
+    // --- Step 4: Deal 3 random cards ---
+    while (hand.length < 3) {
+      var randomIndex = Math.floor(Math.random() * 52); // number between 0-51
+      var randomCard = deck[randomIndex];
+
+      // Check if card has already been dealt
+      if (!randomCard.isDealt) {
+        randomCard.isDealt = true; // mark it as dealt
+        randomCard.show(); // make it visible
+        hand.push(randomCard);
+      }
+    }
+
+    // --- Step 5: Display results ---
+    var output = document.getElementById("output");
+    output.innerHTML = "<h3>Three Random Cards Dealt:</h3>";
+
+    for (var k = 0; k < hand.length; k++) {
+      output.innerHTML += `${hand[k].rank} of ${hand[k].suit} (Visible: ${hand[k].isVisible})<br>`;
+    }
+
+    output.innerHTML += "<br><h3>Checking if a card is dealt:</h3>";
+    output.innerHTML += `Example: ${deck[0].rank} of ${deck[0].suit} → Dealt: ${deck[0].isDealt}`;
+  </script>
 </body>
 </html>
