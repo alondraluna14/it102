@@ -1,49 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Object Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8ff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .card {
+      display: inline-block;
+      border: 2px solid #555;
+      border-radius: 10px;
+      width: 100px;
+      height: 140px;
+      margin: 15px;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: white;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .hidden {
+      background-color: #ccc;
+      color: transparent;
+        border: 2px dashed #999;
+    }
+
+    .heart {
+      color: red;
+    }
+
+    .spade {
+      color: black;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #520707;
+      color: white;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #520707;
+    }
+  </style>
 </head>
 <body>
-    <h1> Playing Card Object</h1>
-<p>
-<script>
+  <h1>Playing Card Object</h1>
 
-    function Card(suit, rank ){
+  <div id="cards"></div>
 
-  //create the suit property and assign it the value from the parameter.
-        this.suit = suit;
-  //create the rank property and assign it the value from the parameter.
-        this.rank = rank;
-  //create the isVisible property and assign boolean false to it.
+  <button onclick="showCards()">Show Cards</button>
+  <button onclick="hideCards()">Hide Cards</button>
+
+  <script>
+    function Card(suit, rank) {
+      this.suit = suit;
+      this.rank = rank;
+      this.isVisible = false;
+
+      this.show = function() {
+        this.isVisible = true;
+      };
+
+      this.hide = function() {
         this.isVisible = false;
-  //create the show() method.  This method assigns the boolean true to this.isVisible.
-        this.show = function(){
-            this.isVisible = true
+      };
+    }
 
-        };
-  //create the hide() method.  This method assigns the boolean false to this.isVisible.
-        this.hide = function(){
-            this.isVisible = false;
+    // Create two cards
+    var card1 = new Card("spades", "9");
+    var card2 = new Card("hearts", "Queen");
 
-        };
+    // Display cards on the page
+    function displayCards() {
+      const cardsDiv = document.getElementById("cards");
+      cardsDiv.innerHTML = ""; // clear previous cards
 
-}
+      const allCards = [card1, card2];
 
-var card01 = new Card("spades", 9);
-var card02 = new Card("spades", 10);
+      allCards.forEach((card) => {
+        const cardDiv = document.createElement("div");
+        cardDiv.classList.add("card");
 
-alert(card01.suit);
-alert(card01.rank);
-alert(card01.rank + " of " + card01.suit);
-alert(card02.isVisible);
-card02.show();
-alert(card02.isVisible);
-</script>
+        // Add color based on suit
+        if (card.suit === "hearts") {
+          cardDiv.classList.add("heart");
+          var symbol = "♥";
+        } else if (card.suit === "spades") {
+          cardDiv.classList.add("spade");
+          var symbol = "♠";
+        }
 
-</p>
+        // Show or hide the card
+        if (!card.isVisible) {
+          cardDiv.classList.add("hidden");
+          cardDiv.innerHTML = "Hidden";
+        } else {
+          cardDiv.innerHTML = `${card.rank}<br>${symbol}`;
+        }
 
+        cardsDiv.appendChild(cardDiv);
+      });
+    }
 
+    function showCards() {
+      card1.show();
+      card2.show();
+      displayCards();
+    }
+
+    function hideCards() {
+      card1.hide();
+      card2.hide();
+      displayCards();
+    }
+
+    // Show initial state
+    displayCards();
+  </script>
 </body>
 </html>
