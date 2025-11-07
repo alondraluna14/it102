@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change HTML Style</title>
+</head>
+<body>
+    <h1 id="header">Welcome to My Page</h1>
+    <p id="paragraph">This is a sample paragraph.</p>
+    <button id="changeStyleButton">Change Styles</button>
+
+    <script>
+        // JavaScript to change styles
+        document.getElementById('changeStyleButton').addEventListener('click', changeStyle);
+
+        function changeStyle() {
+            // Change the style of the h1 element
+            var header = document.getElementById('header');
+            header.style.backgroundColor = 'lightblue'; // Change background color
+            header.style.color = 'darkblue'; // Change text color
+            header.style.fontSize = '40px'; // Change font size
+            header.style.border = '2px solid navy'; // Change border
+
+            // Change the style of the p element
+            var paragraph = document.getElementById('paragraph');
+            paragraph.style.backgroundColor = 'lightyellow'; // Change background color
+            paragraph.style.color = 'darkgreen'; // Change text color
+            paragraph.style.fontSize = '20px'; // Change font size
+            paragraph.style.padding = '15px'; // Change padding
+        };
+    </script>
+</body>
+</html>
