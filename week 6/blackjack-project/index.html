@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blackjack Game</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+  <!-- Título -->
+  <h1>Welcome to Blackjack</h1>
+  <img src="images/blackjack.png" alt="blackjack">
+
+  <!-- Login Form -->
+  <form id="loginForm">
+    <label for="username">Enter your name:</label>
+    <input type="text" id="username" name="username" placeholder="Your name">
+    <button type="submit">Start Game</button>
+  </form>
+
+  <p id="message"></p>
+
+  <!-- Game Container -->
+  <div class="game-container" id="game" style="display:none;">
+    <h2>Let's Play Blackjack!</h2>
+    <button id="drawCard">Draw a Card</button>
+    <p id="playerTotal">Your total: 0</p>
+    <p id="dealerTotal"></p>
+    <div class="cards" id="playerCards"></div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // --- LOGIN VALIDATION ---
+    const loginForm = document.getElementById("loginForm");
+    const game = document.getElementById("game");
+    const message = document.getElementById("message");
+
+    loginForm.addEventListener("submit", function(event){
+      event.preventDefault();
+
+      let username = document.getElementById("username").value.trim();
+
+      if(username === "") {
+        message.textContent = "⚠️ Please enter your name.";
+        message.style.color = "red";
+      }
+      else if(!/^[A-Za-z]+$/.test(username)) {
+        message.textContent = "⚠️ Name must contain only letters.";
+        message.style.color = "red";
+      }
+      else {
+        message.textContent = `✅ Welcome, ${username}!`;
+        message.style.color = "green";
+
+        loginForm.style.display = "none"; // oculta login
+        game.style.display = "block";     // muestra juego
+      }
+    });
+
+    // --- SIMPLE BLACKJACK GAME ---
+    let total = 0;
+    let dealer = 0;
+
+    const playerTotalEl = document.getElementById("playerTotal");
+    const dealerTotalEl = document.getElementById("dealerTotal");
+    const drawBtn = document.getElementById("drawCard");
+    const playerCardsEl = document.getElementById("playerCards");
+
+    drawBtn.addEventListener("click", function(){
+      let card = Math.ceil(Math.random() * 11); // carta aleatoria 1-11
+      total += card;
+
+      // mostrar carta como div
+      const cardDiv = document.createElement("div");
+      cardDiv.className = "card";
+      cardDiv.textContent = card;
+      playerCardsEl.appendChild(cardDiv);
+
+      playerTotalEl.textContent = `Your total: ${total}`;
+
+      if(total > 21){
+        dealerTotalEl.textContent = "💥 You went over 21! Dealer wins!";
+        drawBtn.disabled = true;
+      }
+      else if(total === 21){
+        dealer = Math.ceil(Math.random()*11) + Math.ceil(Math.random()*11);
+        dealerTotalEl.textContent = `🎉 You got 21! Dealer had ${dealer}.`;
+        drawBtn.disabled = true;
+      }
+    });
+  </script>
+</body>
+</html>
