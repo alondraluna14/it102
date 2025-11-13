@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Blackjack Game</h1>
+
+    <script>
+      // --- Initialize variables ---
+      let total = 0;
+      let dealer = 0;
+      let hitMe = true;
+
+      // --- Function to draw a random card (1 to 11) ---
+      function drawCard() {
+        return Math.ceil(11 * Math.random());
+      }
+
+      // --- Player's turn ---
+      do {
+        // Ask if player wants another card
+        let response = prompt("Your current total is " + total + ". Take a card? (Y/N)");
+
+        if (response === null) break; // if user cancels prompt
+
+        if (response.toUpperCase() === "Y") {
+          let card = drawCard();
+          total += card;
+          alert("You drew a " + card + ". Your total is now " + total + ".");
+        } else {
+          hitMe = false;
+        }
+
+        // Stop automatically if total goes over 21
+        if (total > 21) {
+          alert("You busted! Your total is " + total + ".");
+          hitMe = false;
+        }
+
+      } while (hitMe);
+
+      // --- Dealer's turn (only if player didn't bust) ---
+      if (total <= 21) {
+        // Dealer draws until 17 or more
+        do {
+          dealer += drawCard();
+        } while (dealer < 17);
+
+        alert("Dealer's total: " + dealer);
+      }
+
+      // --- Final Results ---
+      if (total > 21) {
+        alert("You lost! You went over 21.");
+      } else if (dealer > 21) {
+        alert("Dealer busted! You win!");
+      } else if (total > dealer) {
+        alert("You win! Your total: " + total + " | Dealer: " + dealer);
+      } else if (total < dealer) {
+        alert("Dealer wins. Your total: " + total + " | Dealer: " + dealer);
+      } else {
+        alert("It's a tie!");
+      }
+    </script>
+  </body>
+</html>
