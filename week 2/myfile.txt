@@ -1,0 +1,1 @@
+Python makes it easy to turn ideas into working code with its clean syntax and powerful built‑in tools.
